@@ -41,7 +41,7 @@
 
     <div class="row">
       <div class="w-100">
-        <a type="button" class="btn btn-block btn-outline-primary" id="button">ツイート</a>
+        <a role="button" class="btn btn-block btn-outline-primary" id="button">ツイート</a>
       </div>
     </div>
   </div>
@@ -56,9 +56,11 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
     integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
     crossorigin="anonymous"></script>
+  <script src="/tipsytoru.js"></script>
   <script>
     var template = [
-      '疲れたときに食べる果物といえば、やっぱり「<FRUIT>」だよね！ ',
+      '疲れたときに食べる果物といえば',
+      'やっぱり「<FRUIT>」だよね！ ',
       'みんなは何を食べる？',
       'https://tipsytoru.netlify.com/template/'
     ].join('\n')
@@ -74,7 +76,7 @@
 
     function update() {
       var text = template.replace('<FRUIT>', state.fruit);
-      var url = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(text);
+      var url = tipsytoru.intent(text);
       var disabled = (!state.fruit);
 
       var button = $('#button');

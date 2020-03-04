@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>朝イチ果物の摂り方</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="朝イチ果物の摂り方">
+  <meta name="twitter:image" content="https://tipsytoru.netlify.com/multisteps/cover.jpg">
+</head>
+
+<body class="cuckoo">
+  <div class="container">
+
+    <!-- cover image -->
+    <div class="row">
+      <div class="w-100"><img src="cover.jpg" class="img-fluid"></div>
+    </div>
+
+    <!-- carousel -->
+    <div class="row">
+      <div class="w-100">
+        <div class="carousel slide" id="carousel" data-interval="false">
+          <div class="carousel-inner">
+
+            <!-- first step -->
+            <div class="carousel-item active">
+              <div class="container">
+                <div class="row">
+                  <div class="w-100">
+                    <p>
+                      朝イチの果物はいいですね。<br>
+                      果物すなわちフルーツ。<br>
+                      さて、あなたはどっちが好きですか？
+                    </p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="w-100">
+                    <button type="button" id="btn11" class="btn btn-block btn-outline-primary">
+                      🍌 バナナ
+                    </button>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="w-100">
+                    <button type="button" id="btn12" class="btn btn-block btn-outline-primary">
+                      🍎 リンゴ
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- second step -->
+            <div class="carousel-item">
+              <div class="container">
+                <div class="row">
+                  <div class="w-100">
+                    <p>そのフルーツ、どんなふうに摂取する？</p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="w-100">
+                    <a role="button" id="btn21" class="btn btn-block btn-outline-primary">
+                      そのまま
+                    </a>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="w-100">
+                    <a role="button" id="btn22" class="btn btn-block btn-outline-primary">
+                      スムージー
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- scripts -->
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script>
+  <script src="/tipsytoru.js"></script>
+  <script>
+    var template = [
+      '朝イチに果物を摂取するなら',
+      'だんぜん<FRUIT>を<FORM>だね',
+      'みんなはどう？',
+      'https://tipsytoru.netlify.com/multisteps/'
+    ].join('\n');
+    var state = { step: 0, fruit: '' };
+
+    function init() {
+      // event listeners
+      $('#btn11').click(function() {onClick('バナナ🍌')});
+      $('#btn12').click(function() {onClick('リンゴ🍎')});
+
+      update();
+    }
+
+    function onClick(fruit) {
+      state.fruit = fruit;
+      state.step = 1;
+      update();
+    }
+
+    function update() {
+      var text = template.replace('<FRUIT>', state.fruit);
+      [
+        {'element': $('#btn21'), 'form': 'そのまま'},
+        {'element': $('#btn22'), 'form': 'スムージー'}
+      ].map(function(v) {
+        var newText = text.replace('<FORM>', v.form);
+        var url = tipsytoru.intent(newText);
+        v.element.attr('href', url);
+      });
+
+      $('#carousel').carousel(state.step);
+    }
+
+    init();
+  </script>
+</body>
+
+</html>
