@@ -4,15 +4,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>疲れたときに食べたい果物</title>
+  <title>昨日はどの果物を食べた？</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
     integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <link rel="stylesheet" href="/style.css">
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="疲れたときに食べたい果物は？">
-  <meta name="twitter:image" content="https://tipsytoru.netlify.com/template/cover.jpg">
+  <meta name="twitter:title" content="昨日はどの果物を食べた？">
+  <meta name="twitter:image" content="https://tipsytoru.netlify.com/multicards/cover.jpg">
 </head>
 
 <body class="cuckoo">
@@ -24,24 +24,24 @@
     <div class="row">
       <div class="w-100">
         <p>
-          疲れたー！<br>
-          ってときに食べたくなる果物はなんですか？
+          毎日📅 果物を食べてますよね。<br>
+          そんなアナタに質問です。<br>
+          昨日たべた果物はなんですか？
         </p>
       </div>
     </div>
 
     <div class="row">
       <div class="w-100">
-        <form>
-          <input class="form-control" type="text" placeholder="例：バナナ"
-            id="fruit">
-        </form>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="w-100">
-        <a role="button" class="btn btn-block btn-outline-primary" id="button">ツイート</a>
+        <a role="button" class="btn btn-block btn-outline-primary" id="banana">
+          🍌 バナナ
+        </a>
+        <a role="button" class="btn btn-block btn-outline-primary" id="apple">
+          🍎 リンゴ
+        </a>
+        <a role="button" class="btn btn-block btn-outline-primary" id="grape">
+          🍇 ブドウ
+        </a>
       </div>
     </div>
   </div>
@@ -58,35 +58,31 @@
     crossorigin="anonymous"></script>
   <script src="/tipsytoru.js"></script>
   <script>
+    var buttons = [
+      { el: $('#banana'), text: '🍌 バナナ', path: 'banana'},
+      { el: $('#apple'), text: '🍎 リンゴ', path: 'apple' },
+      { el: $('#grape'), text: '🍇 ブドウ', path: 'grape' }
+    ];
     var template = [
-      '疲れたときに食べる果物といえば',
-      'やっぱり「<FRUIT>」だよね！ ',
-      'みんなは何を食べる？',
-      'https://tipsytoru.netlify.com/template/'
+      '昨日、食べた果物は、なななんと',
+      '<FRUIT>',
+      'でした。',
+      'あなたは？',
+      'https://tipsytoru.netlify.com/multicards/<PATH>/'
     ].join('\n')
-    var state = { fruit: '' };
 
     function init() {
-      $('#fruit').keyup(function(event) {
-        state.fruit = event.target.value;
-        update();
+      buttons.map(function(obj) {
+        var text = template
+          .replace('<FRUIT>', obj.text)
+          .replace('<PATH>', obj.path);
+        var url = tipsytoru.intent(text);
+        obj.el.attr('href', url);
       });
       update();
     }
 
-    function update() {
-      var text = template.replace('<FRUIT>', state.fruit);
-      var url = tipsytoru.intent(text);
-      var disabled = (!state.fruit);
-
-      var button = $('#button');
-      button.attr('href', url);
-      if (disabled) {
-        button.addClass('disabled');
-      } else {
-        button.removeClass('disabled');
-      }
-    }
+    function update() { /* noop */ }
 
     init();
   </script>
