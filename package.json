@@ -1,0 +1,25 @@
+{
+  "name": "tipsytoru",
+  "version": "1.0.0",
+  "description": "Twitter Post-Click Experience examples.",
+  "main": "index.js",
+  "scripts": {
+    "start": "serve --debug public",
+    "login": "netlify login --new",
+    "deploy": "netlify deploy --dir public --prod"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/torufurukawa/tipsytoru.git"
+  },
+  "author": "Toru Furukawa",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/torufurukawa/tipsytoru/issues"
+  },
+  "homepage": "https://github.com/torufurukawa/tipsytoru#readme",
+  "devDependencies": {
+    "netlify-cli": "^2.36.0",
+    "serve": "^11.3.0"
+  }
+}
